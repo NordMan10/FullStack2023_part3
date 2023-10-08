@@ -31,3 +31,17 @@ DELETE http://localhost:3002/api/persons/4
 ###
 
 DELETE https://part3-phonebook-100n.onrender.com/api/persons/477548
+
+###
+
+PUT http://localhost:3002/api/persons/1
+Content-Type: "application/json"
+
+{
+  "name": "test",
+  "number": "234024425"
+}
+
+###
+
+GET http://localhost:3002/api/persons/180120

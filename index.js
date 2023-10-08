@@ -95,6 +95,39 @@ app.delete('/api/persons/:id', (request, response) => {
   return response.status(204).end()
 })
 
+app.put('/api/persons/:id', (request, response) => {
+  const body = request.body
+  if (!body.name) {
+    return response.status(400).json({
+      error: 'name can\'t be empty!'
+    })
+  }
+  else if (!body.number) {
+    return response.status(400).json({
+      error: 'number can\'t be empty!'
+    })
+  }
+  else {
+    const id = Number(request.params.id)
+    if (persons.some(p => p.id === id)) {
+      const person = {
+        id: id,
+        name: body.name,
+        number: body.number
+      }
+      persons = persons.filter(p => p.id !== id)
+      persons = persons.concat(person)
+      return response.json(person)
+    }
+    else {
+      return response.status(400).json({
+        error: 'there is not object with the specified id!'
+      })
+    }
+  }
+  
+})
+
 const PORT = process.env.PORT || 3002
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
